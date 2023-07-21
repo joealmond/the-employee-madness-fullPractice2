@@ -24,19 +24,57 @@ const EmployeeList = () => {
     });
   };
 
+  const handleSearch = (selectedOption, searchText) => {
+    console.log(selectedOption, searchText);
+
+    switch (selectedOption) {
+      case "":
+        setEmployees(
+          employees.filter((employee) =>
+            employee.level.toLowerCase().includes(searchText) ||
+            employee.position.toLowerCase().includes(searchText) ||
+            employee.name.toLowerCase().includes(searchText)
+          )
+        );
+        break;
+      case "level":
+        setEmployees(
+          employees.filter((employee) =>
+            employee.level.toLowerCase().includes(searchText)
+          )
+        );
+        break;
+      case "position":
+        setEmployees(
+          employees.filter((employee) =>
+            employee.position.toLowerCase().includes(searchText)
+          )
+        );
+        break;
+
+      default:
+        break;
+    }
+  };
+
   useEffect(() => {
-    fetchEmployees()
-      .then((employees) => {
-        setLoading(false);
-        setEmployees(employees);
-      })
+    fetchEmployees().then((employees) => {
+      setLoading(false);
+      setEmployees(employees);
+    });
   }, []);
 
   if (loading) {
     return <Loading />;
   }
 
-  return <EmployeeTable employees={employees} onDelete={handleDelete} />;
+  return (
+    <EmployeeTable
+      employees={employees}
+      onDelete={handleDelete}
+      onSearch={handleSearch}
+    />
+  );
 };
 
 export default EmployeeList;
