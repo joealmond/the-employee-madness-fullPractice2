@@ -15,6 +15,7 @@ const deleteEmployee = (id) => {
 const EmployeeList = () => {
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState(null);
+  const [originalEmployees, setOriginalEmployees] = useState(null);
 
   const handleDelete = (id) => {
     deleteEmployee(id);
@@ -25,7 +26,6 @@ const EmployeeList = () => {
   };
 
   const handleSearch = (selectedOption, searchText) => {
-    console.log(selectedOption, searchText);
 
     switch (selectedOption) {
       case "":
@@ -55,12 +55,16 @@ const EmployeeList = () => {
       default:
         break;
     }
+
+    if (searchText === "") setEmployees(originalEmployees);
+    
   };
 
   useEffect(() => {
     fetchEmployees().then((employees) => {
       setLoading(false);
       setEmployees(employees);
+      setOriginalEmployees(employees);
     });
   }, []);
 
