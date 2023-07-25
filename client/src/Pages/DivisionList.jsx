@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const DivisionList = () => {
   const [divisions, setDivisions] = useState([]);
@@ -43,7 +44,7 @@ const DivisionList = () => {
               <td>{division.location.city}</td>
               <td>{division.location.country}</td>
               <td>
-                <button>Update</button>
+                <Link to={`/divisions/update/${division._id}`} ><button>Update</button></Link>
                 <button onClick={()=>onDelete(division._id)}>Delete</button>
               </td>
             </tr>

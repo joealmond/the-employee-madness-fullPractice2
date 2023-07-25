@@ -58,10 +58,10 @@ app.delete("/api/employees/:id", async (req, res, next) => {
   }
 });
 
-// app.get("/api/employees/:id", async (req, res) => {
-//   const employee = await EmployeeModel.findById(req.params.id);
-//   return res.json(employee);
-// });
+app.get("/api/divisions/:id", async (req, res) => {
+  const division = await DivisionModel.findById(req.params.id).populate('boss');
+  return res.json(division);
+});
 
 app.get("/api/divisions/", async (req, res) => {
   const divisions = await DivisionModel.find().populate('boss').sort({ created: "desc" });
