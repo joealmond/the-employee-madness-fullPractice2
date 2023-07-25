@@ -42,6 +42,9 @@ const EmployeeTable = ({ employees, onDelete, onSearch }) => {
               <td>{employee.level}</td>
               <td>{employee.position}</td>
               <td>
+                <Link to={`/kittens/${employee._id}`}>
+                  <button type="button">Kittens</button>
+                </Link>
                 <Link to={`/update/${employee._id}`}>
                   <button type="button">Update</button>
                 </Link>
