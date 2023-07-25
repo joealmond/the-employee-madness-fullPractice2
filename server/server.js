@@ -40,6 +40,17 @@ app.post("/api/employees/", async (req, res, next) => {
   }
 });
 
+app.post("/api/kittens/", async (req, res, next) => {
+  const kitten = req.body;
+
+  try {
+    const saved = await KittenModel.create(kitten);
+    return res.json(saved);
+  } catch (err) {
+    return next(err);
+  }
+});
+
 app.patch("/api/employees/:id", async (req, res, next) => {
   try {
     const employee = await EmployeeModel.findOneAndUpdate(
