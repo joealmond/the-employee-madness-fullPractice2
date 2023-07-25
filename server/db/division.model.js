@@ -3,13 +3,16 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
-const EmployeeSchema = new Schema({
+const DivisionSchema = new Schema({
   name: String,
-  level: String,
-  position: String,
-  division: {
+  boss: {
     type: Schema.Types.ObjectId,
-    ref: "Division",
+    ref: "Employee",
+  },
+  budget: Number,
+  location: {
+    city: String,
+    country: String,
   },
   created: {
     type: Date,
@@ -17,4 +20,4 @@ const EmployeeSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("Employee", EmployeeSchema);
+module.exports = mongoose.model("Division", DivisionSchema);

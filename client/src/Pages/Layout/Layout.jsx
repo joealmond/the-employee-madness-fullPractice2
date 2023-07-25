@@ -8,6 +8,8 @@ const Layout = () => (
       <ul>
         <li className="grow">
           <Link to="/">Employees</Link>
+          {" "}
+          <Link to="/divisions">Divisions</Link>
         </li>
         <li>
           <Link to="/create">

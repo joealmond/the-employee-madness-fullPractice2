@@ -20,3 +20,32 @@ Content-Type:  application/json
 {
   "name": "asd"
 }
+
+###
+
+GET http://localhost:8080/api/divisions/
+
+###
+POST http://localhost:8080/api/divisions/
+Content-Type: application/json
+
+{
+  "name": "Blues Division",
+  "boss": "64ba6f5b8a3e91f732258434",
+  "budget": "3000",
+  "location": {
+    "city": "Roma",
+    "country": "Italy"
+  }
+}
+
+###
+DELETE http://localhost:8080/api/divisions/64bfafc4d5719e9e6ea15d14
+
+###
+PATCH http://localhost:8080/api/divisions/64bfaf34d5719e9e6ea15d0a
+Content-Type:  application/json
+
+{
+  "name": "Zero"
+}
