@@ -30,12 +30,12 @@ POST http://localhost:8080/api/divisions/
 Content-Type: application/json
 
 {
-  "name": "Blues Division",
+  "name": "Zero Division",
   "boss": "64ba6f5b8a3e91f732258434",
-  "budget": "3000",
+  "budget": "5000",
   "location": {
-    "city": "Roma",
-    "country": "Italy"
+    "city": "Madrid",
+    "country": "Spain"
   }
 }
 

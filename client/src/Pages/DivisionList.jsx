@@ -12,6 +12,18 @@ const DivisionList = () => {
     getDivisions();
   }, []);
 
+  const onDelete = (id) => {
+    const handleDelete = async () => {
+      const res = await fetch(`/api/divisions/${id}`, {
+        method: "DELETE"
+      });
+      const resData = await res.json();
+      console.log("deleted:",resData)
+      setDivisions(divisions.filter((division)=>division._id !== id))
+    };
+    handleDelete();
+  };
+
   return (
     <div>
       <table>
@@ -30,6 +42,10 @@ const DivisionList = () => {
               <td>{division.boss.name}</td>
               <td>{division.location.city}</td>
               <td>{division.location.country}</td>
+              <td>
+                <button>Update</button>
+                <button onClick={()=>onDelete(division._id)}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>
