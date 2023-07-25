@@ -64,7 +64,7 @@ app.delete("/api/employees/:id", async (req, res, next) => {
 // });
 
 app.get("/api/divisions/", async (req, res) => {
-  const divisions = await DivisionModel.find().sort({ created: "desc" });
+  const divisions = await DivisionModel.find().populate('boss').sort({ created: "desc" });
   return res.json(divisions);
 });
 

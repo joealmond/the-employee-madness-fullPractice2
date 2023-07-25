@@ -27,7 +27,7 @@ const DivisionList = () => {
           {divisions.map((division) => (
             <tr key={division._id}>
               <td>{division.name}</td>
-              <td>{division.boss}</td>
+              <td>{division.boss.name}</td>
               <td>{division.location.city}</td>
               <td>{division.location.country}</td>
             </tr>
