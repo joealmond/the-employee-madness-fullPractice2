@@ -13,13 +13,6 @@ const DivisionForm = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(
-      divisionId ?? "no",
-      divisionName,
-      divisionBoss,
-      divisionCity,
-      divisionCountry
-    );
     if (divisionId) {
       const updateDivision = async () => {
         const res = await fetch(`/api/divisions/${divisionId}`, {
