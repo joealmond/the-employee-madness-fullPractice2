@@ -16,11 +16,11 @@ const DivisionList = () => {
   const onDelete = (id) => {
     const handleDelete = async () => {
       const res = await fetch(`/api/divisions/${id}`, {
-        method: "DELETE"
+        method: "DELETE",
       });
       const resData = await res.json();
-      console.log("deleted:",resData)
-      setDivisions(divisions.filter((division)=>division._id !== id))
+      console.log("deleted:", resData);
+      setDivisions(divisions.filter((division) => division._id !== id));
     };
     handleDelete();
   };
@@ -44,8 +44,13 @@ const DivisionList = () => {
               <td>{division.location.city}</td>
               <td>{division.location.country}</td>
               <td>
-                <Link to={`/divisions/update/${division._id}`} ><button>Update</button></Link>
-                <button onClick={()=>onDelete(division._id)}>Delete</button>
+                <Link to={`/divisions/update/${division._id}`}>
+                  <button>Update</button>
+                </Link>
+                <Link to={`/division/${division._id}`}>
+                  <button>Details</button>
+                </Link>
+                <button onClick={() => onDelete(division._id)}>Delete</button>
               </td>
             </tr>
           ))}
