@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const DivisionForm = () => {
   const [division, setDivision] = useState(null);
@@ -9,14 +9,68 @@ const DivisionForm = () => {
   const [divisionCity, setDivisionCity] = useState("");
   const [divisionCountry, setDivisionCountry] = useState("");
   const { divisionId } = useParams();
+  const navigate = useNavigate();
 
-  const handleCreateDivision = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
+    console.log(
+      divisionId ?? "no",
+      divisionName,
+      divisionBoss,
+      divisionCity,
+      divisionCountry
+    );
+    if (divisionId) {
+      const updateDivision = async () => {
+        const res = await fetch(`/api/divisions/${divisionId}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...division,
+            name: divisionName,
+            boss: divisionBoss,
+            location: {
+              ...division.location,
+              city: divisionCity,
+              country: divisionCountry,
+            },
+          }),
+        });
+        const resData = await res.json();
+        console.log(resData);
+        navigate("/divisions");
+      };
+      updateDivision();
+    }
+
+    const createDivision = async () => {
+      const res = await fetch("/api/divisions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: divisionName,
+          boss: divisionBoss,
+          location: {
+            city: divisionCity,
+            country: divisionCountry,
+          },
+        }),
+      });
+      const resData = await res.json();
+      console.log(resData);
+      navigate("/divisions");
+
+    };
+    createDivision();
   };
 
   useEffect(() => {
     if (divisionId) {
-      const getDivisions = async () => {
+      const getDivision = async () => {
         const res = await fetch(`/api/divisions/${divisionId}`);
         const resData = await res.json();
         setDivision(resData);
@@ -25,7 +79,7 @@ const DivisionForm = () => {
         setDivisionCity(resData.location.city);
         setDivisionCountry(resData.location.country);
       };
-      getDivisions();
+      getDivision();
     }
   }, [divisionId]);
 
@@ -40,7 +94,7 @@ const DivisionForm = () => {
 
   return (
     <div>
-      <form onSubmit={handleCreateDivision}>
+      <form onSubmit={handleFormSubmit}>
         <label>
           Division name:
           <input
@@ -52,16 +106,20 @@ const DivisionForm = () => {
         <label>
           Boss:
           <select
+            required
             value={divisionBoss}
             onChange={(e) => setDivisionBoss(e.target.value)}
           >
-            {divisionBoss.name ?? <option value="">-- Select a boss --</option>}
-            {employees &&
-              employees.map((employee) => (
-                <option key={employee._id} value={employee._id}>
-                  {employee.name}
-                </option>
-              ))}
+            {
+              <option value={divisionBoss._id ?? ""}>
+                {divisionBoss.name ? divisionBoss.name : "-- Select a boss --"}
+              </option>
+            }
+            {employees?.map((employee) => (
+              <option key={employee._id} value={employee._id}>
+                {employee.name}
+              </option>
+            ))}
           </select>
         </label>
         <label>
