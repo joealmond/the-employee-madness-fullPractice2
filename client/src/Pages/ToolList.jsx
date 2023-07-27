@@ -37,6 +37,8 @@ const ToolList = () => {
         ...tools,
         resData
       ])
+      setName("");
+      setWeight("");
     };
     addTool();
   };
