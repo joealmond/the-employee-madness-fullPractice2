@@ -19,8 +19,8 @@ app.get("/api/employees/", async (req, res) => {
 });
 
 app.get("/api/employees/:id", async (req, res) => {
-  const employee = await EmployeeModel.findById(req.params.id);
-  return res.json(employee);
+  const employees = await EmployeeModel.findById(req.params.id);
+  return res.json(employees);
 });
 
 app.post("/api/employees/", async (req, res, next) => {
